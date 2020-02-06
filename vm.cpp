@@ -128,6 +128,18 @@ int main(int argc, char* argv[])
             }
             break;
         }
+        case VJNE: {
+            word address = fetch_word(reg[PC]);
+            reg[PC] += 2;
+
+            dbg("0x%04x\tVJNE\t0x%04x", reg[PC], address);
+
+            if (!(flags & FLAG_ZF)) {
+                reg[PC] = address;
+                dbg("jumped!");
+            }
+            break;
+        }
         default: {
             err(3, "0x%04x\tunknown opcode: 0x%02x", reg[PC], opcode);
             break;

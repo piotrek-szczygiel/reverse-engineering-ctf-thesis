@@ -9,6 +9,7 @@ enum : byte {
     VOUT = 0xb3,
     VCMP = 0x44,
     VJE = 0xa1,
+    VJNE = 0x99,
     COUNT_OPCODES,
 };
 

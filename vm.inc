@@ -32,3 +32,8 @@ db 0x44, %1, %2
 db 0xa1
 dw %1
 %endmacro
+
+%macro vjne 1
+db 0x99
+dw %1
+%endmacro
