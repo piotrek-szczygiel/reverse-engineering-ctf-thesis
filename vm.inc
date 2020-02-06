@@ -2,6 +2,8 @@
 
 %define r0 0
 %define r1 1
+%define r2 2
+%define r3 3
 
 %macro vnop 0
 db 0xde
@@ -36,4 +38,12 @@ dw %1
 %macro vjne 1
 db 0x99
 dw %1
+%endmacro
+
+%macro vldb 2
+db 0xc8, %1, %2
+%endmacro
+
+%macro vinc 1
+db 0x40, %1
 %endmacro

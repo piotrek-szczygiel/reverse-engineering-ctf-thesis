@@ -10,7 +10,8 @@ enum : byte {
     VCMP = 0x44,
     VJE = 0xa1,
     VJNE = 0x99,
-    COUNT_OPCODES,
+    VLDB = 0xc8,
+    VINC = 0x40,
 };
 
 enum : byte {
@@ -31,9 +32,4 @@ enum : byte {
     SP,
     PC,
     COUNT_REGISTERS,
-};
-
-enum : byte {
-    FLAG_ZF = 0x01,
-    FLAG_CF = 0x02,
 };

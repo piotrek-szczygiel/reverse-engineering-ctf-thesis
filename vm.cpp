@@ -1,4 +1,4 @@
-// #define PRINT_DEBUG
+#define PRINT_DEBUG
 #include "vm.hpp"
 #include "utils.hpp"
 #include <iostream>
@@ -9,7 +9,7 @@ constexpr word ORIGIN = 0x3000;
 
 byte memory[MEMORY_SIZE];
 word reg[COUNT_REGISTERS];
-byte flags;
+bool flag_zero = false;
 
 bool load_program(const char* filename)
 {
@@ -107,13 +107,7 @@ int main(int argc, char* argv[])
 
             int32_t res = (int32_t)reg[r1] - (int32_t)reg[r2];
 
-            flags = 0;
-            if (res == 0) {
-                flags |= FLAG_ZF;
-            }
-            if (res < 0) {
-                flags |= FLAG_CF;
-            }
+            flag_zero = (res == 0);
             break;
         }
         case VJE: {
@@ -122,9 +116,8 @@ int main(int argc, char* argv[])
 
             dbg("0x%04x\tVJE\t0x%04x", reg[PC], address);
 
-            if (flags & FLAG_ZF) {
+            if (flag_zero) {
                 reg[PC] = address;
-                dbg("jumped!");
             }
             break;
         }
@@ -134,10 +127,26 @@ int main(int argc, char* argv[])
 
             dbg("0x%04x\tVJNE\t0x%04x", reg[PC], address);
 
-            if (!(flags & FLAG_ZF)) {
+            if (!flag_zero) {
                 reg[PC] = address;
-                dbg("jumped!");
             }
+            break;
+        }
+        case VLDB: {
+            byte r1 = fetch_byte(reg[PC]++);
+            byte r2 = fetch_byte(reg[PC]++);
+
+            dbg("0x%04x\tVLDB\tR%u, R%u (0x%04x)", reg[PC], r1, r2, reg[r2]);
+
+            reg[r1] = fetch_byte(reg[r2]);
+            break;
+        }
+        case VINC: {
+            byte r = fetch_byte(reg[PC]++);
+
+            dbg("0x%04x\tVINC\tR%u (0x%04x)", reg[PC], r, reg[r]);
+
+            ++reg[r];
             break;
         }
         default: {
