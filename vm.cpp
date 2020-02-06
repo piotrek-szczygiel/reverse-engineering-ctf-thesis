@@ -1,4 +1,4 @@
-#define PRINT_DEBUG
+// #define PRINT_DEBUG
 #include "vm.hpp"
 #include "utils.hpp"
 #include <iostream>
@@ -9,6 +9,7 @@ constexpr word ORIGIN = 0x3000;
 
 byte memory[MEMORY_SIZE];
 word reg[COUNT_REGISTERS];
+byte flags;
 
 bool load_program(const char* filename)
 {
@@ -50,30 +51,29 @@ int main(int argc, char* argv[])
     bool running = true;
     while (running) {
         byte opcode = memory[reg[PC]++];
-        // dbg("opcode: 0x%02x", opcode);
 
         switch (opcode) {
         case VNOP: {
-            dbg("VNOP");
+            dbg("0x%04x\tVNOP", reg[PC]);
             break;
         }
         case VHLT: {
             running = false;
-            dbg("VHLT");
+            dbg("0x%04x\tVHLT", reg[PC]);
             break;
         }
         case VSET: {
             byte r = fetch_byte(reg[PC]++);
             reg[r] = fetch_word(reg[PC]);
             reg[PC] += 2;
-            dbg("VSET\tR%u, 0x%04x", r, reg[r]);
+            dbg("0x%04x\tVSET\tR%u, 0x%04x", reg[PC], r, reg[r]);
             break;
         }
         case VINP: {
             byte r = fetch_byte(reg[PC]++);
             word address = reg[r];
 
-            dbg("VINP\tR%u (0x%04x)", r, address);
+            dbg("0x%04x\tVINP\tR%u (0x%04x)", reg[PC], r, address);
 
             std::string input;
             std::getline(std::cin, input);
@@ -85,22 +85,51 @@ int main(int argc, char* argv[])
             for (word i = 0; i < input.size(); ++i) {
                 memory[address + i] = input[i];
             }
-            memory[address + input.size()] = 0x00;
 
+            reg[R0] = input.size();
             break;
         }
         case VOUT: {
             byte r = fetch_byte(reg[PC]++);
             word address = reg[r];
 
-            dbg("VOUT\tR%u (0x%04x)", r, address);
+            dbg("0x%04x\tVOUT\tR%u (0x%04x)", reg[PC], r, address);
             while (memory[address] != 0x00) {
                 printf("%c", memory[address++]);
             }
             break;
         }
+        case VCMP: {
+            byte r1 = fetch_byte(reg[PC]++);
+            byte r2 = fetch_byte(reg[PC]++);
+
+            dbg("0x%04x\tVCMP\tR%u, R%u (%u, %u)", reg[PC], r1, r2, reg[r1], reg[r2]);
+
+            int32_t res = (int32_t)reg[r1] - (int32_t)reg[r2];
+
+            flags = 0;
+            if (res == 0) {
+                flags |= FLAG_ZF;
+            }
+            if (res < 0) {
+                flags |= FLAG_CF;
+            }
+            break;
+        }
+        case VJE: {
+            word address = fetch_word(reg[PC]);
+            reg[PC] += 2;
+
+            dbg("0x%04x\tVJE\t0x%04x", reg[PC], address);
+
+            if (flags & FLAG_ZF) {
+                reg[PC] = address;
+                dbg("jumped!");
+            }
+            break;
+        }
         default: {
-            err(3, "unknown opcode: 0x%02x", opcode);
+            err(3, "0x%04x\tunknown opcode: 0x%02x", reg[PC], opcode);
             break;
         }
         }

@@ -7,6 +7,8 @@ enum : byte {
     VSET = 0x17,
     VINP = 0xe9,
     VOUT = 0xb3,
+    VCMP = 0x44,
+    VJE = 0xa1,
     COUNT_OPCODES,
 };
 
@@ -28,4 +30,9 @@ enum : byte {
     SP,
     PC,
     COUNT_REGISTERS,
+};
+
+enum : byte {
+    FLAG_ZF = 0x01,
+    FLAG_CF = 0x02,
 };

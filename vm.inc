@@ -23,3 +23,12 @@ db 0xe9, %1
 %macro vout 1
 db 0xb3, %1
 %endmacro
+
+%macro vcmp 2
+db 0x44, %1, %2
+%endmacro
+
+%macro vje 1
+db 0xa1
+dw %1
+%endmacro
