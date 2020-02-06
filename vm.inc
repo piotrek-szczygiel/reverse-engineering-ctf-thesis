@@ -4,6 +4,7 @@
 %define r1 1
 %define r2 2
 %define r3 3
+%define r4 4
 
 %macro vnop 0
 db 0xde
