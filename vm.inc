@@ -1,50 +1,22 @@
 [org 0x3000]
 
-%define r0 0
-%define r1 1
-%define r2 2
-%define r3 3
-%define r4 4
-
-%macro vnop 0
-db 0xde
+%macro halt 0
+db 1
 %endmacro
 
-%macro vhlt 0
-db 0x00
-%endmacro
-
-%macro vset 2
-db 0x17, %1
-dw %2
-%endmacro
-
-%macro vinp 1
-db 0xe9, %1
-%endmacro
-
-%macro vout 1
-db 0xb3, %1
-%endmacro
-
-%macro vcmp 2
-db 0x44, %1, %2
-%endmacro
-
-%macro vje 1
-db 0xa1
+%macro push 1
+db 2
 dw %1
 %endmacro
 
-%macro vjne 1
-db 0x99
-dw %1
+%macro add 0
+db 3
 %endmacro
 
-%macro vldb 2
-db 0xc8, %1, %2
+%macro sub 0
+db 4
 %endmacro
 
-%macro vinc 1
-db 0x40, %1
+%macro xor 0
+db 5
 %endmacro
