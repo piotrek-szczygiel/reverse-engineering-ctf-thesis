@@ -16,3 +16,6 @@ ctf: ctf.nasm vm.inc
 
 test: ctf vm
 	./vm ctf.rom
+
+clean:
+	${RM} ctf.rom vm
