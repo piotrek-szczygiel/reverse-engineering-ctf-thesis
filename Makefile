@@ -1,8 +1,8 @@
-CC = clang
+CC = gcc
 CFLAGS = -Wall -Wextra -g -std=c99 -O1
 
 NASM = nasm
-PYTHON = python3
+PYTHON = python
 
 .PHONY: ${OUT} all vm ctf test clean
 .DEFAULT: all

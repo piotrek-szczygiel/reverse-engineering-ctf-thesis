@@ -10,12 +10,6 @@
 
 // #define DEBUG_TRACE
 
-#define MEMORY_SIZE 0x7fff
-#define MEMORY_ORIGIN 0x3000
-#define STACK_SIZE 0x0100
-
-#define INPUT_SIZE 32
-
 void err(int exit_code, const char* format, ...)
 {
     fputs("\nfatal error: ", stderr);
@@ -39,6 +33,12 @@ void dbg(const char* format, ...)
 #endif
 }
 
+#define MEMORY_SIZE 0x7fff
+#define MEMORY_ORIGIN 0x3000
+#define STACK_SIZE 0x0100
+
+#define INPUT_SIZE 32
+
 typedef struct VM {
     uint8_t mem[MEMORY_SIZE];
     uint8_t* ip;
@@ -49,6 +49,19 @@ typedef struct VM {
     char input[INPUT_SIZE];
     char* input_ptr;
 } VM;
+
+typedef enum Instructions {
+    OP_HALT = 225,
+    OP_PUSH = 164,
+    OP_POP = 155,
+    OP_XOR = 3,
+    OP_MUL = 162,
+    OP_INP = 177,
+    OP_JZ = 82,
+    OP_DUP = 206,
+    OP_INC = 102,
+    OP_JEMP = 223,
+} Instructions;
 
 void vm_init(VM* vm)
 {
@@ -92,38 +105,30 @@ void vm_fill_input(VM* vm, char* input, int size)
     }
 }
 
-typedef enum Instructions {
-    OP_HALT = 225,
-    OP_PUSH = 164,
-    OP_POP = 155,
-    OP_XOR = 3,
-    OP_MUL = 162,
-    OP_INP = 177,
-    OP_JZ = 82,
-    OP_DUP = 206,
-    OP_INC = 102,
-    OP_JEMP = 223,
-} Instructions;
+inline char vm_read_byte(VM* vm) { return *vm->ip++; }
+
+inline short vm_read_short(VM* vm)
+{
+    vm->ip += 2;
+    return *(vm->ip - 2) | *(vm->ip - 1) << 8;
+}
 
 int vm_run(VM* vm)
 {
-#define READ_BYTE() (*vm->ip++)
-#define READ_SHORT() (*vm->ip++ | *vm->ip++ << 8)
-
     for (;;) {
         dbg("$ 0x%04x\t", vm->ip - vm->mem);
 
-        uint8_t instruction = READ_BYTE();
+        uint8_t instruction = vm_read_byte(vm);
         switch (instruction) {
         case OP_HALT: {
             dbg("HALT");
-            short value = READ_SHORT();
+            short value = vm_read_short(vm);
             dbg(" %d\n", value);
             return value;
         }
         case OP_PUSH: {
             dbg("PUSH");
-            short value = READ_SHORT();
+            short value = vm_read_short(vm);
             dbg(" %d", value);
             vm_push(vm, value);
             break;
@@ -166,7 +171,7 @@ int vm_run(VM* vm)
         }
         case OP_JZ: {
             dbg("JZ");
-            short jmp = READ_SHORT();
+            short jmp = vm_read_short(vm);
             dbg(" 0x%04x", jmp);
             if (vm_pop(vm) == 0) {
                 vm->ip = vm->mem + jmp;
@@ -191,7 +196,7 @@ int vm_run(VM* vm)
         }
         case OP_JEMP: {
             dbg("JEMP");
-            short jmp = READ_SHORT();
+            short jmp = vm_read_short(vm);
             dbg(" 0x%04x", jmp);
             if (vm->stack == vm->sp) {
                 vm->ip = vm->mem + jmp;
@@ -204,9 +209,6 @@ int vm_run(VM* vm)
         }
         dbg("\n");
     }
-
-#undef READ_BYTE
-#undef READ_SHORT
 }
 
 VM vm;
