@@ -1,3 +1,5 @@
 .vscode
 vm
 ctf.rom
+ctf.push
+ctf.h

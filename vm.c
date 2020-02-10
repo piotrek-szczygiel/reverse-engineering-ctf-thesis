@@ -218,7 +218,7 @@ int main(int argc, char* argv[])
     vm_init(&vm);
     vm_load(&vm, ctf_rom, ctf_rom_len);
 
-    puts("Enter the flag: ");
+    printf("Enter the flag: ");
     char flag[INPUT_SIZE];
     fgets(flag, sizeof(flag), stdin);
     int len = strlen(flag);
@@ -229,9 +229,9 @@ int main(int argc, char* argv[])
 
     int value = vm_run(&vm);
     if (value == 0) {
-        puts("Correct flag!\n");
+        printf("Correct flag!\n");
     } else {
-        puts("Incorrect flag!\n");
+        printf("Incorrect flag!\n");
     }
 
     return value;
