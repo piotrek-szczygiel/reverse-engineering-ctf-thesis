@@ -8,11 +8,12 @@ NASM = nasm
 
 all: ctf vm
 
-vm: vm.c
-	${CC} ${CFLAGS} vm.c -o vm
-
 ctf: ctf.nasm vm.inc
 	${NASM} ctf.nasm -o ctf.rom
+	xxd -i ctf.rom > ctf.h
+
+vm: ctf vm.c
+	${CC} ${CFLAGS} vm.c -o vm
 
 test: ctf vm
 	./vm ctf.rom

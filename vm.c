@@ -6,11 +6,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "ctf.h"
+
 // #define DEBUG_TRACE
 
 #define MEMORY_SIZE 0x7fff
 #define MEMORY_ORIGIN 0x3000
-#define STACK_SIZE 0x100
+#define STACK_SIZE 0x0100
 
 #define INPUT_SIZE 32
 
@@ -55,23 +57,16 @@ void vm_init(VM* vm)
     vm->input_ptr = vm->input;
 }
 
-void vm_load(VM* vm, const char* filename)
+void vm_load(VM* vm, const unsigned char* rom, size_t size)
 {
-    FILE* file = fopen(filename, "rb");
-    if (file == NULL) {
-        err(2, "unable to open file: %s", filename);
-    }
-
-    int read = fread(vm->mem + MEMORY_ORIGIN, 1, MEMORY_SIZE, file);
-    dbg("read %d bytes from %s\n", read, filename);
-
-    fclose(file);
+    memcpy(vm->mem + MEMORY_ORIGIN, rom, size);
+    dbg("loaded %zu bytes", size);
 }
 
 void vm_push(VM* vm, short value)
 {
     if (vm->sp - vm->stack >= STACK_SIZE) {
-        err(4, "stack overflow");
+        err(3, "stack overflow");
     }
 
     *vm->sp++ = value;
@@ -80,7 +75,7 @@ void vm_push(VM* vm, short value)
 short vm_pop(VM* vm)
 {
     if (vm->sp == vm->stack) {
-        err(5, "unable to pop from empty stack");
+        err(4, "unable to pop from empty stack");
     }
 
     return *--vm->sp;
@@ -89,7 +84,7 @@ short vm_pop(VM* vm)
 void vm_fill_input(VM* vm, char* input, int size)
 {
     if (size > 32) {
-        err(7, "input longer than 32");
+        err(5, "input longer than 32");
     }
 
     for (int i = 0; i < size; ++i) {
@@ -205,7 +200,7 @@ int vm_run(VM* vm)
             break;
         }
         default: {
-            err(3, "unknown instruction: %d", instruction);
+            err(2, "unknown instruction: %d", instruction);
         }
         }
         dbg("\n");
@@ -217,16 +212,14 @@ int vm_run(VM* vm)
 
 int main(int argc, char* argv[])
 {
-    if (argc != 2) {
-        err(1, "usage: %s rom_file", argv[0]);
-    }
+    (void)argc;
+    (void)argv;
 
     VM vm;
     vm_init(&vm);
-    vm_load(&vm, argv[1]);
+    vm_load(&vm, ctf_rom, ctf_rom_len);
 
-    printf("Enter the flag: ");
-
+    puts("Enter the flag: ");
     char flag[INPUT_SIZE];
     fgets(flag, sizeof(flag), stdin);
     int len = strlen(flag);
@@ -237,9 +230,9 @@ int main(int argc, char* argv[])
 
     int value = vm_run(&vm);
     if (value == 0) {
-        printf("Correct flag!\n");
+        puts("Correct flag!\n");
     } else {
-        printf("Incorrect flag!\n");
+        puts("Incorrect flag!\n");
     }
 
     return value;
