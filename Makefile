@@ -1,5 +1,5 @@
 CC = clang
-CFLAGS = -Wall -Wextra -g -std=c99
+CFLAGS = -Wall -Wextra -g -std=c99 -O1
 
 NASM = nasm
 

@@ -130,8 +130,7 @@ int vm_run(VM* vm)
         }
         case OP_POP: {
             dbg("POP");
-            short value = vm_pop(vm);
-            dbg("\t\t// %d", value);
+            vm_pop(vm);
             break;
         }
         case OP_XOR: {
@@ -210,12 +209,12 @@ int vm_run(VM* vm)
 #undef READ_SHORT
 }
 
+VM vm;
 int main(int argc, char* argv[])
 {
     (void)argc;
     (void)argv;
 
-    VM vm;
     vm_init(&vm);
     vm_load(&vm, ctf_rom, ctf_rom_len);
 
