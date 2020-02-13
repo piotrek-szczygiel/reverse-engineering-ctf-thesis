@@ -1,4 +1,4 @@
-[org 0x3000]
+[org 0x1337]
 
 %macro halt 1
 db 225

@@ -19,7 +19,7 @@ vm: ctf vm.c
 	${CC} ${CFLAGS} vm.c -o vm
 
 test: ctf vm
-	./vm ctf.rom
+	./vm
 
 clean:
 	${RM} ctf.rom ctf.h ctf.push vm
