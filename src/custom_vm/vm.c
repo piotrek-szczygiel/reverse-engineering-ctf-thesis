@@ -122,7 +122,10 @@ void vm_fill_input(VM* vm, const char* input, int size)
     }
 }
 
-inline uint8_t vm_read_byte(VM* vm) { return *vm->ip++; }
+inline uint8_t vm_read_byte(VM* vm)
+{
+    return *vm->ip++;
+}
 
 inline short vm_read_short(VM* vm)
 {

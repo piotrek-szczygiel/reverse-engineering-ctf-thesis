@@ -3,3 +3,4 @@ Language: Cpp
 BasedOnStyle: WebKit
 ColumnLimit: 80
 AlignTrailingComments: true
+AllowShortFunctionsOnASingleLine: None
