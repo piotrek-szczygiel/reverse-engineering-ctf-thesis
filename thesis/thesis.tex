@@ -21,8 +21,13 @@
 
 \maketitle
 
+\tableofcontents
+\newpage
+
 \section{\SectionTitleProjectVision}
 \label{sec:cel-wizja}
+
+\subsection{Wprowadzenie}
 
 Gra typu Capture-the-Flag jest to rodzaj zawodów z ogólnie pojętego
 bezpieczeństwa komputerowego. Ich celem zwykle jest edukacja uczestników
@@ -35,7 +40,7 @@ poprzez rozwiązanie zadania. Przykładowo w najprostszych zadaniach
 z dziedziny eksploitacji stron internetowych, flagę możemy znaleźć klikając
 "Pokaż źródło strony" w przeglądarce internetowej.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=10cm]{flag_page_source}
     \caption{Flaga \textbf{f7s0jkl} ukryta w źródle strony internetowej}
@@ -60,12 +65,12 @@ Produktem końcowym będzie zbiór kilku zadań udostępniony na platformie webo
 Platforma sama w sobie nie jest niczym specjalnym, udostępnia jedynie takie powszechne
 funkcjonalności jak rejestracja użytkowników, ranking najlepszych graczy,
 pobieranie zadań oraz interfejs umożliwiający wprowadzanie znalezionych
-flag. Z tego względu użyję już gotowej platformy \href{https://ctfd.io}{CTFd}.
+flag. Z tego względu użyję już gotowej platformy CTFd \cite{CTFd}.
 Użycie takiego gotowego rozwiązania pozwoli mi w pełni skupić się na samych zadaniach
 i nie przejmować się takimi rzeczami jak gracze próbujący łamać zabezpieczenia
 platformy.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=10cm]{ctfd}
     \caption{Przykładowe zadanie na stronie demonstracyjnej CTFd}
@@ -83,13 +88,15 @@ Na początku uczestnik będzie miał szansę rozwiązać proste zadania,
 zachęcające go do dalszej rozgrywki. Finalne zadania powinny stanowić wyzwanie
 nawet dla doświadczonych graczy. \pagebreak
 
-Aktualnie istnieje wiele różnych zawodów CTF online.
-Jednym z popularniejszych jest \newline \href{https://picoctf.com}{picoCTF}.
-Można tam kiedykolwiek wejść, zalogować się i zająć się rozwiązywaniem problemów.
+\subsection{Dostępne platformy}
 
-\begin{figure}[h]
+Aktualnie istnieje wiele różnych zawodów CTF online.
+Jednym z popularniejszych jest \newline picoCTF \cite{picoCTF}.
+Można tam wejść kiedykolwiek, zalogować się i zająć się rozwiązywaniem problemów.
+
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=10cm]{picoctf}
+    \includegraphics[width=15cm]{picoctf}
     \caption{Zadanie z kategorii Forensics na stronie picoCTF}
     \label{fig:picoctf}
 \end{figure}
@@ -99,11 +106,13 @@ się na zadaniach w takich kategoriach jak Forensics czy Web Exploitation.
 Mnie natomiast bardzo interesuję temat inżynierii wstecznej i chciałem
 przygotować wyzwania oparte o zadania tylko z tej kategorii.
 
+\subsection{Języki programowania i narzędzia}
+
 Zadania będą tworzone w języku C. Jest to powszechnie znany język, który
 z wyłączoną zbyt agresywną optymalizacją ze strony kompilatora, generuje
 w miarę przewidywalny kod maszynowy. Zaletą tego jest to, że narzędzia
 do debugowania, dezasemblacji oraz wykonywania innych analiz programów
-bardzo dobrze radzą sobie z takimi plikami. Dzięki temu język ten
+dobrze radzą sobie z takimi plikami. Dzięki temu język ten
 zapewni nam kontrolę nad tym w jakim stopniu graczowi ułatwimy
 lub utrudnimy rozgrywkę. W celu zapewnienia większej różnorodności
 środowisk korzystać będziemy zarówno z systemu Windows jak i Linux.
@@ -112,46 +121,173 @@ Do rozwiązywania zadań posłużymy się różnorodnymi rodzajami narzędzi.
 Poczynając od linuxowych programów linii poleceń takich jak \emph{strings}
 czy \emph{gdb}, pisania własnych narzędzi w języku \emph{Python},
 czy w końcu korzystając z pełnoprawnych narzędzi z interfejsem graficznym takich
-jak używana przez NSA \emph{Ghidra}, czy debugger dla systemu
+jak używana przez NSA \emph{Ghidra}, \emph{Cutter}, czy debugger dla systemu
 Windows \emph{RemedyBG}.
 
 \clearpage
 
-%\emph{Charakterystyka problemu, motywacja projektu (w tym przegląd
-%  istniejących rozwiązań prowadząca do uzasadnienia celu prac),
-%  wizja produktu i analiza zagrożeń.}
-
 \section{\SectionTitleScope}
 \label{sec:zakres-funkcjonalnosci}
-%\emph{Kontekst użytkowania produktu (aktorzy, współpracujące systemy)
-%  oraz specyfikacja wymagań funkcjonalnych i niefunkcjonalnych.}
+
+\subsection{Platforma}
+
+Jak wspominałem w poprzednim rozdziale, do interfejsu webowego skorzystam
+z gotowej platformy CTFd \cite{CTFd}. Finalny produkt będzie
+dostępny na mojej stronie, pod adresem \href{https://szczygiel.dev}{https://szczygiel.dev}.
+Strona postawiona będzie na prywatnym serwerze VPS. Platforma będzie
+uruchomiona w środowisku docker \cite{docker},
+a wystawiona do świata będzie poprzez serwer Caddy \cite{Caddy},
+który w prosty sposób zapewni nam HTTPS, dzięki organizacji Let's Encrypt \cite{lets_encrypt}.
+
+\subsection{Użytkownicy}
+
+Użytkownikiem systemu będzie każda osoba zainteresowana rozwiązywaniem
+tego rodzaju zadań. Może to być zarówno ktoś kształcący się lub pracujący
+w dziale informatycznym, jak i osoba dla której jest to jedynie hobby.
+
+Wszystkie gotowe zadania zostaną wrzucone na platformę, dzięki czemu
+każda zainteresowana osoba będzie mogła spróbować swoich sił.
+
+\clearpage
+
+\subsection{Prezentacja interfejsu użytkownika}
+
+\begin{figure}[ht]
+    Pierwsze co zobaczy każdy użytkownik wchodzący na platformę, to strona główna.
+    Będzie z niej można przejść do reszty podstron, takich jak logowanie, rejestracja,
+    wylogowanie, spis graczy, tabela wyników oraz lista dostępnych zadań.
+
+    \vspace{1cm}
+
+    \centering
+    \includegraphics[width=14cm]{szczygiel_dev}
+    \caption{Strona głowna platformy CTF}
+    \label{fig:szczygiel_dev}
+\end{figure}
+
+\begin{figure}[ht]
+    Poniżej przedstawiony jest interfejs rejestracji nowego użytkownika.
+    Nie będzie to nic skomplikowanego - wystarczy podać login, email oraz hasło.
+
+    \vspace{1cm}
+
+    \centering
+    \includegraphics[width=14cm]{szczygiel_dev_register}
+    \caption{Rejestracja nowego użytkownika}
+    \label{fig:szczygiel_dev_register}
+\end{figure}
+
+\begin{figure}[ht]
+    Jeśli użytkownik posiada konto to będzie się mógł na nie zalogować.
+
+    \vspace{1cm}
+
+    \centering
+    \includegraphics[width=14cm]{szczygiel_dev_login}
+    \caption{Panel logowania dla istniejącego użytkownika}
+    \label{fig:szczygiel_dev_login}
+\end{figure}
+
+\begin{figure}[ht]
+    Będąc zalogowanym, można wybrać zadanie które ma się ochote rozwiązać.
+
+    \vspace{1cm}
+
+    \centering
+    \includegraphics[width=14cm]{szczygiel_dev_challenges}
+    \caption{Wybór zadania do rozwiązania}
+    \label{fig:szczygiel_dev_challenges}
+\end{figure}
+
+\begin{figure}[ht]
+    Po wybraniu interesującego nas zadania, może pobrać dostarczony plik,
+    a następnie po rozwiązaniu zadania wprowadzić prawidłową (lub nie) flagę.
+
+    \vspace{1cm}
+
+    \centering
+    \includegraphics[width=14cm]{szczygiel_dev_incorrect}
+    \caption{Interfejs zadania oraz wprowadzenie nieprawidłowej flagi}
+    \label{fig:szczygiel_dev_incorrect}
+\end{figure}
+
+\begin{figure}[ht]
+    Po wprowadzeniu prawidłowej flagi otrzymamy stosowny komunikat.
+    Można również zauważyć, że zadanie w tle zmieniło kolor na zielony.
+
+    \vspace{1cm}
+
+    \centering
+    \includegraphics[width=14cm]{szczygiel_dev_correct}
+    \caption{Efekt wprowadzenia prawidłowej flagi}
+    \label{fig:szczygiel_dev_correct}
+\end{figure}
+
+\begin{figure}[ht]
+    Dostępna jest również lista zarejestrowanych użytkowników.
+    Można wejść w profil każdego użytkownika i zobaczyć jego postępy.
+
+    \vspace{1cm}
+
+    \centering
+    \includegraphics[width=14cm]{szczygiel_dev_users}
+    \caption{Spis zarejestrowanych użytkowników}
+    \label{fig:szczygiel_dev_users}
+\end{figure}
+
+\begin{figure}[ht]
+    Wchodząc na profil użytkownika możemy zobaczyć o nim różne informacje.
+    Jest to przede wszystkim rozkład prawidłowych oraz nie prawidłowych
+    wprowadzeń flag oraz wykres posiadanych punktów w czasie.
+    Na dole widzimy również wszystkie rozwiązane przez użytkownika zadania.
+
+    \vspace{1cm}
+
+    \centering
+    \includegraphics[width=14cm]{szczygiel_dev_user_info}
+    \caption{Szczegóły postępów konkretnego użytkownika}
+    \label{fig:szczygiel_dev_user_info}
+\end{figure}
+
+\begin{figure}[ht]
+    Każdy użytkownik może również zmienić oraz dodać informację o sobie.
+    Będzie mógł zmienić nazwę użytkownika, email, hasło, oraz dodać
+    takie szczegóły jak strona internetowa, firma dla której pracuję czy kraj pochodzenia.
+
+    \vspace{1cm}
+
+    \centering
+    \includegraphics[width=14cm]{szczygiel_dev_settings}
+    \caption{Edycja profilu użytkownika}
+    \label{fig:szczygiel_dev_settings}
+\end{figure}
+
+\clearpage
 
 \section{\SectionTitleRealizationAspects}
 \label{sec:wybrane-aspekty-realizacji}
-% \emph{Przyjęte założenia, struktura i zasada działania systemu,
-%   wykorzystane rozwiązania technologiczne wraz z uzasadnieniem
-%   ich wyboru, istotne mechanizmy i zastosowane algorytmy.}
+\emph{Przyjęte założenia, struktura i zasada działania systemu,
+  wykorzystane rozwiązania technologiczne wraz z uzasadnieniem
+  ich wyboru, istotne mechanizmy i zastosowane algorytmy.}
 
 \section{\SectionTitleWorkOrganization}
 \label{sec:organizacja-pracy}
-% \emph{Struktura zespołu (role poszczególnych osób), krótki opis i
-%   uzasadnienie przyjętej metodyki i/lub kolejności prac, planowane i
-%   zrealizowane etapy prac ze wskazaniem udziału poszczególnych
-%   członków zespołu, wykorzystane praktyki i narzędzia w zarządzaniu
-%   projektem.}
+\emph{Struktura zespołu (role poszczególnych osób), krótki opis i
+  uzasadnienie przyjętej metodyki i/lub kolejności prac, planowane i
+  zrealizowane etapy prac ze wskazaniem udziału poszczególnych
+  członków zespołu, wykorzystane praktyki i narzędzia w zarządzaniu
+  projektem.}
 
 \section{\SectionTitleResults}
 \label{sec:wyniki-projektu}
-% \emph{Wskazanie wyników projektu (co konkretnie udało się uzyskać:
-%   oprogramowanie, dokumentacja, raporty z testów/wdrożenia, itd.), prezentacja wyników
-%   i ocena ich użyteczności (jak zostało to zweryfikowane --- np.\ wnioski
-%   klienta/użytkownika, zrealizowane testy wydajnościowe, itd.),
-%   istniejące ograniczenia i propozycje dalszych prac.}
+\emph{Wskazanie wyników projektu (co konkretnie udało się uzyskać:
+  oprogramowanie, dokumentacja, raporty z testów/wdrożenia, itd.), prezentacja wyników
+  i ocena ich użyteczności (jak zostało to zweryfikowane --- np.\ wnioski
+  klienta/użytkownika, zrealizowane testy wydajnościowe, itd.),
+  istniejące ograniczenia i propozycje dalszych prac.}
 
-% o ile to możliwe proszę używać odwołań \cite w konkretnych miejscach a nie \nocite
+\clearpage
 
-% \nocite{artykul2011,ksiazka2011,narzedzie2011,projekt2011}
-
-% \bibliography{bibliography}
+\bibliography{bibliography}
 
 \end{document}
