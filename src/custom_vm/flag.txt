@@ -1,0 +1,4 @@
+Flag below is encrypted using Blowfish algorithm
+https://codebeautify.org/encrypt-decrypt
+
+YggEmXgJKI1RHdfrtyDvIdOFGCEjBnx4BKYmEdyAieGslMoUoKL4ew==
