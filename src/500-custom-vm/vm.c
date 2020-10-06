@@ -254,11 +254,8 @@ int vm_run(VM* vm)
 }
 
 VM vm;
-int main(int argc, char* argv[])
+int main()
 {
-    (void)argc;
-    (void)argv;
-
     ascii_art_logo();
 
     vm_init(&vm);
