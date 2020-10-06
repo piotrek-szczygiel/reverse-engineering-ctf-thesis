@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -g -std=c99 -O1 -lraylib
+CFLAGS = -Wall -Wextra -g -std=c99 -O0 -lraylib
 
 PYTHON = python
 

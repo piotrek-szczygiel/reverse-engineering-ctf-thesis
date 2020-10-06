@@ -143,11 +143,14 @@ void decrypt_flag()
     }
 }
 
+bool show_flag()
+{
+    return false;
+}
+
 int main()
 {
-    const bool SHOW_FLAG = false;
-
-    if (SHOW_FLAG) {
+    if (show_flag()) {
         decrypt_flag();
     }
 
@@ -182,7 +185,7 @@ int main()
         DrawCircleV(position, 25, MAROON);
 
         if (finished) {
-            if (SHOW_FLAG) {
+            if (show_flag()) {
                 DrawText((const char*)flag, 100, 90, 20, GREEN);
             } else {
                 DrawText(
