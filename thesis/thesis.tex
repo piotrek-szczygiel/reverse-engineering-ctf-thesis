@@ -47,13 +47,13 @@ z dziedziny eksploitacji stron internetowych, flagę możemy znaleźć klikając
     \label{fig:flag_page_source}
 \end{figure}
 
-W mojej pracy będę prezentował jednak grę opartą
+W tej pracy zaprezentowana będzie jednak grę oparta
 wyłącznie o Reverse Engineering (ang. Inżynieria Wsteczna).
 Inżynieria wsteczna oprogramowania może odbywać się na różne sposoby.
 Może to być przykładowo wykorzystanie tzw. snifferów do analizy protokołów
-komunikacyjnych aplikacji internetowej. W naszym wypadku będzie ona jednak
+komunikacyjnych aplikacji internetowej. W tym wypadku będzie ona jednak
 zazwyczaj oznaczała proces analizy programu, aby zrozumieć co robi
-oraz w jaki sposób. Zadania, które przedstawię można by też podpiąć do kategorii
+oraz w jaki sposób. Przedstawione zadania można by też podpiąć do kategorii
 eksploitacji binarnej (ang. Binary Exploitation), która w pewny sposób pokrywa
 się z zagadnieniami Reverse Engineeringu. Jest to mianowicie proces
 wykorzystywania niedoskonałości programów w celu zmuszenia ich do zrobienia
@@ -65,10 +65,9 @@ Produktem końcowym będzie zbiór kilku zadań udostępniony na platformie webo
 Platforma sama w sobie nie jest niczym specjalnym, udostępnia jedynie takie powszechne
 funkcjonalności jak rejestracja użytkowników, ranking najlepszych graczy,
 pobieranie zadań oraz interfejs umożliwiający wprowadzanie znalezionych
-flag. Z tego względu użyję już gotowej platformy CTFd \cite{CTFd}.
-Użycie takiego gotowego rozwiązania pozwoli mi w pełni skupić się na samych zadaniach
-i nie przejmować się takimi rzeczami jak gracze próbujący łamać zabezpieczenia
-platformy.
+flag. Z tego względu użyta zostanie gotowa platforma CTFd \cite{CTFd}.
+Użycie takiego gotowego rozwiązania pozwoli w pełni skupić się na samych zadaniach,
+a ominąć takie kwestie jak np. gracze łamiący zabezpieczenia platformy.
 
 \begin{figure}[ht]
     \centering
@@ -77,12 +76,12 @@ platformy.
     \label{fig:ctfd}
 \end{figure}
 
-W tej pracy opisze zarówno proces tworzenia poszczególnych zadań,
-jak i przykładowe ich rozwiązania. Używam słowa "przykładowe", ponieważ
+W tej pracy opisany zostanie zarówno proces tworzenia poszczególnych zadań,
+jak i przykładowe ich rozwiązania. Użyte zostało słowo "przykładowe", ponieważ
 w takiej kategorii jak Binary Exploitation / Reverse Engineering liczba sposobów
 na rozwiązanie danego zadania jest ograniczona jedynie przez wyobraźnie uczestnika.
-Nie będę się również ograniczał do korzystania ciągle z tych samych narzędzi.
-Postaram się pokazać różnorodne podejścia do analizy i rozwiązywania wyzwań.
+Nie ograniczymy się również do korzystania ciągle z tych samych narzędzi.
+Pokazane zostaną różnorodne podejścia do analizy i rozwiązywania wyzwań.
 Zadania będą tworzone z zamiarem zachowania rosnącego stopnia trudności.
 Na początku uczestnik będzie miał szansę rozwiązać proste zadania,
 zachęcające go do dalszej rozgrywki. Finalne zadania powinny stanowić wyzwanie
@@ -101,7 +100,7 @@ Można tam wejść kiedykolwiek, zalogować się i zająć się rozwiązywaniem 
     \label{fig:picoctf}
 \end{figure}
 
-Moją główną motywacją jednak jest fakt, że strony tego typu często skupiają
+Główną motywacją do napisania tej pracy jest fakt, że strony tego typu często skupiają
 się na zadaniach w takich kategoriach jak Forensics czy Web Exploitation.
 Mnie natomiast bardzo interesuję temat inżynierii wstecznej i chciałem
 przygotować wyzwania oparte o zadania tylko z tej kategorii.
@@ -131,9 +130,9 @@ Windows \emph{RemedyBG}.
 
 \subsection{Platforma}
 
-Jak wspominałem w poprzednim rozdziale, do interfejsu webowego skorzystam
-z gotowej platformy CTFd \cite{CTFd}. Finalny produkt będzie
-dostępny na mojej stronie, pod adresem \href{https://szczygiel.dev}{https://szczygiel.dev}.
+Do interfejsu webowego skorzystamy z gotowej platformy CTFd \cite{CTFd}.
+Finalny produkt będzie dostępny pod adresem
+\href{https://ctf.szczygiel.dev}{https://ctf.szczygiel.dev}.
 Strona postawiona będzie na prywatnym serwerze VPS. Platforma będzie
 uruchomiona w środowisku docker \cite{docker},
 a wystawiona do świata będzie poprzez serwer Caddy \cite{Caddy},
@@ -200,7 +199,7 @@ każda zainteresowana osoba będzie mogła spróbować swoich sił.
 \end{figure}
 
 \begin{figure}[ht]
-    Po wybraniu interesującego nas zadania, może pobrać dostarczony plik,
+Po wybraniu interesującego nas zadania, można pobrać dostarczony plik,
     a następnie po rozwiązaniu zadania wprowadzić prawidłową (lub nie) flagę.
 
     \vspace{1cm}
@@ -236,8 +235,8 @@ każda zainteresowana osoba będzie mogła spróbować swoich sił.
 \end{figure}
 
 \begin{figure}[ht]
-    Wchodząc na profil użytkownika możemy zobaczyć o nim różne informacje.
-    Jest to przede wszystkim rozkład prawidłowych oraz nie prawidłowych
+Wchodząc na profil użytkownika można zobaczyć o nim różne informacje.
+Jest to przede wszystkim rozkład prawidłowych oraz nieprawidłowych
     wprowadzeń flag oraz wykres posiadanych punktów w czasie.
     Na dole widzimy również wszystkie rozwiązane przez użytkownika zadania.
 
@@ -267,24 +266,24 @@ każda zainteresowana osoba będzie mogła spróbować swoich sił.
 \section{\SectionTitleRealizationAspects}
 \label{sec:wybrane-aspekty-realizacji}
 \emph{Przyjęte założenia, struktura i zasada działania systemu,
-  wykorzystane rozwiązania technologiczne wraz z uzasadnieniem
-  ich wyboru, istotne mechanizmy i zastosowane algorytmy.}
+    wykorzystane rozwiązania technologiczne wraz z uzasadnieniem
+    ich wyboru, istotne mechanizmy i zastosowane algorytmy.}
 
 \section{\SectionTitleWorkOrganization}
 \label{sec:organizacja-pracy}
 \emph{Struktura zespołu (role poszczególnych osób), krótki opis i
-  uzasadnienie przyjętej metodyki i/lub kolejności prac, planowane i
-  zrealizowane etapy prac ze wskazaniem udziału poszczególnych
-  członków zespołu, wykorzystane praktyki i narzędzia w zarządzaniu
-  projektem.}
+    uzasadnienie przyjętej metodyki i/lub kolejności prac, planowane i
+    zrealizowane etapy prac ze wskazaniem udziału poszczególnych
+    członków zespołu, wykorzystane praktyki i narzędzia w zarządzaniu
+    projektem.}
 
 \section{\SectionTitleResults}
 \label{sec:wyniki-projektu}
 \emph{Wskazanie wyników projektu (co konkretnie udało się uzyskać:
-  oprogramowanie, dokumentacja, raporty z testów/wdrożenia, itd.), prezentacja wyników
-  i ocena ich użyteczności (jak zostało to zweryfikowane --- np.\ wnioski
-  klienta/użytkownika, zrealizowane testy wydajnościowe, itd.),
-  istniejące ograniczenia i propozycje dalszych prac.}
+    oprogramowanie, dokumentacja, raporty z testów/wdrożenia, itd.), prezentacja wyników
+    i ocena ich użyteczności (jak zostało to zweryfikowane --- np.\ wnioski
+    klienta/użytkownika, zrealizowane testy wydajnościowe, itd.),
+    istniejące ograniczenia i propozycje dalszych prac.}
 
 \clearpage
 
