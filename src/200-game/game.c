@@ -188,8 +188,8 @@ int main()
             if (show_flag()) {
                 DrawText((const char*)flag, 100, 90, 20, GREEN);
             } else {
-                DrawText(
-                    "You have not unlocked access to the flag!", 100, 90, 20, RED);
+                DrawText("You have not unlocked access to the flag!", 100, 90,
+                    20, RED);
             }
         }
 
