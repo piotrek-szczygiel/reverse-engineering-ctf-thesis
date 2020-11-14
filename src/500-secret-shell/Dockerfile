@@ -8,12 +8,12 @@ RUN dpkg --add-architecture i386 \
     && echo "ctf:agh-reverse-engineering" | chpasswd \
     && mkdir -p /var/run/sshd
 
-COPY greeter /home/admin/greeter
-COPY decrypted_flag.txt /home/admin/flag.txt
+COPY secret-shell /home/admin/secret-shell
+COPY decrypted_flag.txt /home/admin/access_code.txt
 
-RUN chown admin:admin /home/admin/greeter /home/admin/flag.txt \
-    && chmod 4755 /home/admin/greeter \
-    && chmod 600 /home/admin/flag.txt
+RUN chown admin:admin /home/admin/secret-shell /home/admin/access_code.txt \
+    && chmod 4755 /home/admin/secret-shell \
+    && chmod 600 /home/admin/access_code.txt
 
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
