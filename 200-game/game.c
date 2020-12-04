@@ -155,42 +155,18 @@ int main()
     }
 
     SetTraceLogLevel(LOG_ERROR);
-    InitWindow(800, 200, "200-game");
+    InitWindow(460, 40, "200-game");
     SetTargetFPS(60);
 
-    Vector2 position = { 100, 100 };
-
     while (!WindowShouldClose()) {
-        if (IsKeyDown(KEY_RIGHT)) {
-            position.x += 5;
-        } else if (IsKeyDown(KEY_LEFT)) {
-            position.x -= 5;
-        }
-
-        if (position.x < 100) {
-            position.x = 100;
-        } else if (position.x > 700) {
-            position.x = 700;
-        }
-
-        bool finished = false;
-        if (position.x == 700) {
-            finished = true;
-        }
-
         BeginDrawing();
         ClearBackground(BLACK);
 
-        DrawRectangle(650, 50, 100, 100, GOLD);
-        DrawCircleV(position, 25, MAROON);
-
-        if (finished) {
-            if (show_flag()) {
-                DrawText((const char*)flag, 100, 90, 20, GREEN);
-            } else {
-                DrawText("You have not unlocked access to the flag!", 100, 90,
-                    20, RED);
-            }
+        if (show_flag()) {
+            DrawText((const char*)flag, 10, 10, 20, GREEN);
+        } else {
+            DrawText(
+                "You have not unlocked access to the flag!", 10, 10, 20, RED);
         }
 
         EndDrawing();
