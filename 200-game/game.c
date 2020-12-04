@@ -155,7 +155,7 @@ int main()
     }
 
     SetTraceLogLevel(LOG_ERROR);
-    InitWindow(800, 200, "300 - Game");
+    InitWindow(800, 200, "200-game");
     SetTargetFPS(60);
 
     Vector2 position = { 100, 100 };
