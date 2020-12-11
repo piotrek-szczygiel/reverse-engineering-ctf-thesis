@@ -12,8 +12,8 @@ COPY secret-shell /home/admin/secret-shell
 COPY decrypted_flag.txt /home/admin/access_code.txt
 
 RUN chown admin:admin /home/admin/secret-shell /home/admin/access_code.txt \
-    && chmod 4555 /home/admin/secret-shell \
-    && chmod 400 /home/admin/access_code.txt
+    && chmod 4755 /home/admin/secret-shell \
+    && chmod 600 /home/admin/access_code.txt
 
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
