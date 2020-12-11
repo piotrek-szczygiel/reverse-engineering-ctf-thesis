@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c99 -O3 -s
+CFLAGS = -Wall -Wextra -std=c99 -O3 -s -fno-stack-protector
 
 .PHONY: ${OUT} all strcmp test clean
 .DEFAULT: all

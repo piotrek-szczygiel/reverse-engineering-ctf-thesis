@@ -1,10 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 
-char flag[] = { 0x90, 0xf9, 0xeb, 0x94, 0xaf, 0xdf, 0xce, 0x8a, 0xb2, 0xce,
-    0xd9, 0x99, 0xbf, 0xd9, 0xe1, 0x88, 0xab, 0xdf, 0xe1, 0x9d, 0xbf, 0xdd,
-    0xdb, 0x83, 0xbd, 0xca, 0xcc, 0x9e, 0x81, 0x95, 0x87, 0xd7, 0xee, 0xd0 };
-
 void encrypt(char* input, int length)
 {
     for (int i = 0; i < length; ++i) {
@@ -35,22 +31,16 @@ void encrypt(char* input, int length)
 int main()
 {
     char input[64];
-
-    printf("Enter the flag: ");
     fgets(input, sizeof(input), stdin);
 
     int length = strlen(input) - 1;
     input[length] = '\0';
 
-    if (length == sizeof(flag)) {
-        encrypt(input, length);
+    encrypt(input, length);
 
-        if (memcmp(input, flag, length) == 0) {
-            puts("Correct flag!");
-            return 0;
-        }
+    for (int i = 0; i < length; ++i) {
+        printf("0x%02x, ", (unsigned char)input[i]);
     }
 
-    puts("Incorrect flag!");
     return 0;
 }
