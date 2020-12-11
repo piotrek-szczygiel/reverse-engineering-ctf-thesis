@@ -93,9 +93,8 @@ int main()
 
     while (true) {
         print_effect("Enter the access code: ", GRAY, 3);
-        set_color(CYAN);
-        fgets(input, sizeof(input), stdin);
         reset_color();
+        fgets(input, sizeof(input), stdin);
 
         if (strcmp(access_code, input) == 0) {
             print_effect("Access granted!", GREEN, 2);
