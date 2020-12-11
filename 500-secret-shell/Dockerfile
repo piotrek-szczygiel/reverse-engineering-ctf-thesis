@@ -4,7 +4,7 @@ RUN dpkg --add-architecture i386 \
     && apt-get update \
     && apt-get install -y libc6:i386 libncurses5:i386 libstdc++6:i386 openssh-server binutils python2 \
     && useradd -m admin \
-    && useradd -s /bin/bash ctf \
+    && useradd -ms /bin/bash ctf \
     && echo "ctf:agh-reverse-engineering" | chpasswd \
     && mkdir -p /var/run/sshd
 
