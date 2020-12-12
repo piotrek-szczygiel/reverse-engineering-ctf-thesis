@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -g -std=c99 -O1
+CFLAGS = -Wall -Wextra -g -std=c99
 
 NASM = nasm
 PYTHON = python
