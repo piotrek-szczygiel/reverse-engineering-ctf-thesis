@@ -74,9 +74,7 @@ void vm_fill_input(VM* vm, const char* input, int size)
         exit(5);
     }
 
-    for (int i = 0; i < size; ++i) {
-        vm->input[i] = input[i];
-    }
+    memcpy(vm->input, input, size);
 }
 
 uint8_t vm_read_byte(VM* vm)
